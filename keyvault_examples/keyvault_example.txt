@@ -1,0 +1,22 @@
+provider "azurerm" {
+  version = "= 2.18"
+  features {}
+}
+
+resource "azurerm_key_vault" "rg" {
+  name                = "keyvault001" # change this to whatever you want the kv to be called
+  location            = "uksouth" # location of where to deploy
+  resource_group_name = "rg007" # make sure the resource group exists or create
+  tenant_id           = "X-X-X-X-X" # add your azure tenant id
+  sku_name            = "standard" # choose tier
+  access_policy {
+    tenant_id = "x-x-x-x-x" # enter your tenant ID
+    object_id = "x-x-x-x-x" # enter your user object ID
+    key_permissions = [
+      "get", "list", "create", "delete", "update",
+    ]
+    secret_permissions = [
+      "get", "list", "set", "delete",
+    ]
+  }
+}
